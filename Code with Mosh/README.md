@@ -48,3 +48,9 @@
 **Tools**
 - 
 - **bun**: all-in-one JavaScript runtime & toolkit designed for speed, complete with a bundler, test runner, and Node.js-compatible package manager
+    ```
+        bun init                    // node init
+        bun add                     // npm install
+        bun rum index.ts            // node index.js
+        bun --watch run index.ts    // nodemon index.js
+    ```
