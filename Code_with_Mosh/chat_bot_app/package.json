@@ -5,8 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "bun run index.ts",
-    "format": "prettier --write .",
-    "prepare": "cd .. && cd .. && husky Code_with_Mosh/chat_bot_app/.husky"
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -20,5 +19,8 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "openai": "^5.22.0"
+  }
 }
