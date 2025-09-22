@@ -42,3 +42,11 @@ bun run index.ts
    ```
 
    - use .prettierignore to ignore formatting certain files
+
+## **Husky**
+
+- [husky](https://typicode.github.io/husky/) automatically lint commit messages, code, and run tests upon committing or pushing.
+
+## **lint-staged**
+
+- preform tasks on staged files
