@@ -12,17 +12,17 @@ To run:
 bun run index.ts
 ```
 
-## **Bun**
+### **Bun**
 
 - [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
 - This project was created using `bun init` in bun v1.2.22.
 
-## **Shadcn**
+### **Shadcn**
 
 - [Shadcn](https://ui.shadcn.com/docs/installation/vite) is a ui component library
 - collection of customizable components
 
-## **Prettier**
+### **Prettier**
 
 - code formatter
 - define prettier formatting setting in .prettierrc:
@@ -43,10 +43,9 @@ bun run index.ts
 
    - use .prettierignore to ignore formatting certain files
 
-## **Husky**
+---
 
-- [husky](https://typicode.github.io/husky/) automatically lint commit messages, code, and run tests upon committing or pushing.
+### **Layers**
 
-## **lint-staged**
-
-- preform tasks on staged files
+- controllers (gateway) -> services (application logic) -> repositories (data)
+   - controller receives a http request, validates it, then calls service to do the job, return http response
