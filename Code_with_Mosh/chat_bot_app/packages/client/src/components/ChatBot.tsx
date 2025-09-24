@@ -32,6 +32,9 @@ const ChatBot = () => {
     // typing indicator
     const [isBotTyping, setIsBotTyping] = useState<boolean>(false);
 
+    // keep track of error to display to user
+    const [error, setError] = useState('');
+
     // register input field, handle form submission
     const { register, handleSubmit, reset, formState } = useForm<FormData>();
 
@@ -41,21 +44,29 @@ const ChatBot = () => {
     }, [messages]);
 
     const onSubmit = async ({ prompt }: FormData) => {
-        // prev tells react to get the latest version of the message array
-        setMessages((prev) => [...prev, { content: prompt, role: 'user' }]);
+        try {
+            // prev tells react to get the latest version of the message array
+            setMessages((prev) => [...prev, { content: prompt, role: 'user' }]);
 
-        setIsBotTyping(true);
-        reset();
-        const { data } = await axios.post<ChatResponse>('/api/v1/chat', {
-            prompt,
-            conversationId: conversationId.current,
-        });
-        setIsBotTyping(false);
+            setIsBotTyping(true);
+            setError('');
 
-        setMessages((prev) => [
-            ...prev,
-            { content: data.message, role: 'bot' },
-        ]);
+            reset();
+            const { data } = await axios.post<ChatResponse>('/api/v1/chat', {
+                prompt,
+                conversationId: conversationId.current,
+            });
+
+            setMessages((prev) => [
+                ...prev,
+                { content: data.message, role: 'bot' },
+            ]);
+        } catch (error) {
+            console.error(error);
+            setError('Something went wrong, try again later.');
+        } finally {
+            setIsBotTyping(false);
+        }
     };
 
     const onKeyDown = (e: KeyboardEvent<HTMLFormElement>) => {
@@ -103,6 +114,7 @@ const ChatBot = () => {
                         <p className="w-2 h-2 rounded-full bg-gray-800 animate-pulse [animation-delay:0.4s]"></p>
                     </div>
                 )}
+                {error && <p className="text-red-500">{error}</p>}
             </div>
             <form
                 onSubmit={handleSubmit(onSubmit)} // function that will be called if form is valid
