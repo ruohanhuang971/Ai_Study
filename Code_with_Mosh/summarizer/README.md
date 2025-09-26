@@ -22,9 +22,15 @@ Projects uses:
 
     -   in server folder run command
 
-    ```
-    bun add prisma
-    bun add @prisma/client
+        ```
+        bun add prisma
+        bun add @prisma/client
 
-    bunx prisma init
-    ```
+        bunx prisma init
+        ```
+
+    -   define prisma schema in schema.prisma
+    -   make a new prisma migration
+        ```
+        bunx prisma migrate dev
+        ```

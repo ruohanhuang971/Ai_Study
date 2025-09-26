@@ -10,6 +10,49 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+// define product
+model Product {
+  // id field, type Int, attributes 
+  // [id: unique value for each record, assign default incremented value]
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(255) // override string type
+  description String?  @db.Text // ? means this field is optional
+  price       Float
+  // corresponding relationship with Review
+  Review      Review[]
+  Summary     Summary? // could have product with any reviews
+
+  // name product table
+  @@map("products")
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  author    String   @db.VarChar(255)
+  rating    Int      @db.TinyInt // only store up to 255
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  productId Int
+  // the productId field reference the id field in Product
+  product   Product  @relation(fields: [productId], references: [id])
+
+  // name table
+  @@map("reviews")
+}
+
+model Summary {
+  id          Int      @id @default(autoincrement())
+  productId   Int      @unique
+  // the productId field reference the id field in Product
+  product     Product  @relation(fields: [productId], references: [id])
+  content     String   @db.Text
+  generatedAt DateTime @default(now())
+  expiresAt   DateTime
+
+  // name table
+  @@map("summaries")
 }
