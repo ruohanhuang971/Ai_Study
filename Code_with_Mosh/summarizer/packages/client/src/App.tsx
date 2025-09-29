@@ -1,16 +1,12 @@
-import { useEffect, useState } from 'react';
 import './App.css';
+import ReviewList from './components/ReviewList';
 
 function App() {
-    const [message, setMessage] = useState('');
-
-    useEffect(() => {
-        fetch('/api/v1/hello')
-            .then((res) => res.json())
-            .then((data) => setMessage(data.message));
-    }, []);
-
-    return <p>{message}</p>;
+    return (
+        <div className="p-4 h-screen w-full">
+            <ReviewList productId={1} />
+        </div>
+    );
 }
 
 export default App;

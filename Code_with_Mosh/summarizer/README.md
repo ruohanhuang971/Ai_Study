@@ -34,3 +34,7 @@ Projects uses:
         ```
         bunx prisma migrate dev
         ```
+
+-   @tanstack/react-query:
+    -   automatic retries when query fails
+    -   cache query
