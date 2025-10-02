@@ -1,15 +1,6 @@
 # pokemon-battle-assistant
 
-To install dependencies:
+Tools used:
 
-```bash
-bun install
-```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.2.22. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+-   bun: run + stall projects
+-   dnd-kit: draggable components
