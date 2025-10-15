@@ -1,16 +1,10 @@
-import {
-    DndContext,
-    KeyboardSensor,
-    PointerSensor,
-    useSensor,
-    useSensors,
-} from '@dnd-kit/core';
+import { DndContext } from '@dnd-kit/core';
 import type { DragEndEvent, UniqueIdentifier } from '@dnd-kit/core';
 import { useState } from 'react';
-import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import SearchOptions from './SearchOptions'; // draggable
 import TeamSlots from './TeamSlots'; // droppable
 import PokemonAvatar from '../../components/pokemonAvatar';
+import PokemonSearchBar from './PokemonSearchBar';
 
 /*
     TeamBuilder: drag pokemon cards from search options to teamSlot
@@ -30,18 +24,9 @@ const TeamBuilder = () => {
         C: null,
     });
 
-    const [activeItem, setActiveItem] = useState<UniqueIdentifier | null>(null);
-
-    const sensors = useSensors(
-        useSensor(PointerSensor),
-        useSensor(KeyboardSensor, {
-            coordinateGetter: sortableKeyboardCoordinates,
-        })
-    );
-
     return (
         <div>
-            <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
+            <DndContext onDragEnd={handleDragEnd}>
                 {/* Row of droppable slots */}
                 <div className="flex justify-center space-x-6 mb-8">
                     {containers.map((id) => (
@@ -59,17 +44,21 @@ const TeamBuilder = () => {
                 </div>
 
                 {/* Draggable Items */}
-                <div className="flex justify-center space-x-4">
-                    {items.map((itemId) =>
-                        // only render if not assigned to a slot
-                        !Object.values(assignSlot).includes(itemId) ? (
-                            <SearchOptions key={itemId} id={itemId}>
-                                {<PokemonAvatar name={itemId} />}
-                            </SearchOptions>
-                        ) : null
-                    )}
+                <div className="flex justify-center">
+                    <div className="flex justify-center flex-wrap gap-4 max-w-md mx-auto">
+                        {items.map((itemId) =>
+                            // only render if not assigned to a slot
+                            !Object.values(assignSlot).includes(itemId) ? (
+                                <SearchOptions key={itemId} id={itemId}>
+                                    {<PokemonAvatar name={itemId} />}
+                                </SearchOptions>
+                            ) : null
+                        )}
+                    </div>
                 </div>
             </DndContext>
+
+            <PokemonSearchBar />
         </div>
     );
 
