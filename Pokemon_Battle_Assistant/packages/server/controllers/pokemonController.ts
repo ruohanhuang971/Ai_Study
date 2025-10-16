@@ -1,14 +1,6 @@
 import { request, type Request, type Response } from 'express';
 import axios, { type AxiosResponse } from 'axios';
 
-type PokemonBasicInfo = {
-    id: string;
-    name: string;
-    sprites: {
-        front_default: string | null;
-    };
-};
-
 type APIResource = {
     name: string;
     url: string;
@@ -26,7 +18,7 @@ export const getAllPokemon = async (req: Request, res: Response) => {
     // fetch data from pokemon api
     const URL = `https://pokeapi.co/api/v2/pokemon/?offset=${page * PAGE_SIZE}`;
     const response = await axios.get(URL);
-    const pokemonResource = response.data.results as APIResource[];
+    const pokemonResource = response.data.results;
 
     // fetch detailed data with the pokemon url
     const pokemon = [];
@@ -41,10 +33,7 @@ export const getAllPokemon = async (req: Request, res: Response) => {
         pokemon.push({ id, name, front_default });
     }
 
-    return res.json({
-        message: 'Getting all pokemon',
-        pokemon,
-    });
+    return res.json({ pokemon });
 };
 
 export const getSinglePokemon = async (req: Request, res: Response) => {

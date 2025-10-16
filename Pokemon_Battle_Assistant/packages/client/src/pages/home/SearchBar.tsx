@@ -1,15 +1,19 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
+import SearchResults from './SearchResults';
 
 type Inputs = {
     pokemonName: string;
 };
 
-const PokemonSearchBar = () => {
+const SearchBar = () => {
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<Inputs>();
+
+    const pageNumber = 1;
+
     const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
     return (
@@ -33,9 +37,11 @@ const PokemonSearchBar = () => {
                     type="submit"
                     className="mt-5 bg-blue-500 hover:bg-blue-600 text-white px-10 py-2 rounded cursor-pointer"
                 />
+
+                <SearchResults page={pageNumber} />
             </form>
         </div>
     );
 };
 
-export default PokemonSearchBar;
+export default SearchBar;

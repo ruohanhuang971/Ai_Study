@@ -3,8 +3,8 @@ import type { DragEndEvent, UniqueIdentifier } from '@dnd-kit/core';
 import { useState } from 'react';
 import SearchOptions from './SearchOptions'; // draggable
 import TeamSlots from './TeamSlots'; // droppable
-import PokemonAvatar from '../../components/pokemonAvatar';
-import PokemonSearchBar from './PokemonSearchBar';
+import PokemonAvatar from '../../components//pokemonAvatar';
+import SearchBar from './SearchBar';
 
 /*
     TeamBuilder: drag pokemon cards from search options to teamSlot
@@ -12,7 +12,7 @@ import PokemonSearchBar from './PokemonSearchBar';
 
 const TeamBuilder = () => {
     const containers = ['A', 'B', 'C'];
-    const items = ['pikachu', 'bulbasaur', 'charmander', 'evee']; // TODO: TEST DRAGGABLE OPTIONS
+    // const items = ['pikachu', 'bulbasaur', 'charmander', 'evee']; // TODO: TEST DRAGGABLE OPTIONS
 
     // track item in slot
     // Record<K, V>: K = key of object, V = value of key
@@ -43,7 +43,9 @@ const TeamBuilder = () => {
                     ))}
                 </div>
 
-                {/* Draggable Items */}
+                <SearchBar />
+
+                {/* Draggable Items
                 <div className="flex justify-center">
                     <div className="flex justify-center flex-wrap gap-4 max-w-md mx-auto">
                         {items.map((itemId) =>
@@ -55,10 +57,8 @@ const TeamBuilder = () => {
                             ) : null
                         )}
                     </div>
-                </div>
+                </div>*/}
             </DndContext>
-
-            <PokemonSearchBar />
         </div>
     );
 
